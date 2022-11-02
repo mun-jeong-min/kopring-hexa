@@ -1,43 +1,53 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
-    id("org.springframework.boot") version "2.7.5"
-    id("io.spring.dependency-management") version "1.0.15.RELEASE"
-    kotlin("jvm") version "1.6.21"
-    kotlin("plugin.spring") version "1.6.21"
+    kotlin("jvm") version PluginVersions.JVM_VERSION
 }
 
-group = "com.example"
-version = "0.0.1-SNAPSHOT"
-java.sourceCompatibility = JavaVersion.VERSION_11
+subprojects {
+    apply {
+        plugin("org.jetbrains.kotlin.jvm")
+        version = PluginVersions.JVM_VERSION
+    }
 
-configurations {
-    compileOnly {
-        extendsFrom(configurations.annotationProcessor.get())
+    apply {
+        plugin("org.jetbrains.kotlin.kapt")
+           version = PluginVersions.KAPT_VERSION
+    }
+
+    dependencies {
+        implementation(Dependencies.SPRING_WEB)
+        implementation(Dependencies.JACKSON)
+        implementation(Dependencies.KOTLIN_REFLECT)
+        implementation(Dependencies.KOTLIN_JDK)
+        testImplementation(Dependencies.SPRING_TEST)
     }
 }
 
-repositories {
-    mavenCentral()
-}
+allprojects {
+    group = "com.example"
+    version = "0.0.1-SNAPSHOT"
+    
+    tasks {
+        compileKotlin {
+            kotlinOptions {
+                freeCompilerArgs = listOf("-Xjsr305=strict")
+                jvmTarget = "11"
+            }
+        }
 
-dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    compileOnly("org.projectlombok:lombok")
-    annotationProcessor("org.projectlombok:lombok")
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-}
+        compileJava {
+            sourceCompatibility = JavaVersion.VERSION_11.majorVersion
+        }
 
-tasks.withType<KotlinCompile> {
-    kotlinOptions {
-        freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = "11"
+        test {
+            useJUnitPlatform()
+        }
+    }
+
+    repositories {
+        mavenCentral()
     }
 }
 
-tasks.withType<Test> {
-    useJUnitPlatform()
+tasks.getByName<Jar>("jar") {
+    enabled = false
 }
