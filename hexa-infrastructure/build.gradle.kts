@@ -6,7 +6,27 @@ plugins {
 }
 
 dependencies {
+    implementation(project(":hexa-domain"))
+
     implementation(Dependencies.SPRING_WEB)
+
+    implementation(Dependencies.SPRING_DATA_JPA)
+    implementation(Dependencies.MYSQL_CONNECTOR)
+
+    implementation(Dependencies.JACKSON)
+    implementation(Dependencies.SPRING_VALIDATION)
+}
+
+noArg {
+    annotation("javax.persistence.Entity")
+    annotation("javax.persistence.MappedSuperclass")
+    annotation("javax.persistence.Embeddable")
+}
+
+allOpen {
+    annotation("javax.persistence.Entity")
+    annotation("javax.persistence.MappedSuperclass")
+    annotation("javax.persistence.Embeddable")
 }
 
 tasks.getByName<Jar>("bootJar") {
