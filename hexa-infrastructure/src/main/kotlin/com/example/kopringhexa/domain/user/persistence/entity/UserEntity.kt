@@ -1,4 +1,4 @@
-package com.example.kopringhexa.domain.user.persistence
+package com.example.kopringhexa.domain.user.persistence.entity
 
 import javax.persistence.*
 import javax.validation.constraints.NotNull
