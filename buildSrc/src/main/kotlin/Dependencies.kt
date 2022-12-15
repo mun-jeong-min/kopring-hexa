@@ -20,4 +20,7 @@ object Dependencies {
     // database
     const val SPRING_DATA_JPA = "org.springframework.boot:spring-boot-starter-data-jpa"
     const val MYSQL_CONNECTOR = "mysql:mysql-connector-java"
+
+    const val MAPSTRUCT = "org.mapstruct:mapstruct:1.4.2.Final"
+    const val MAPSTRUCT_PROCESSOR = "org.mapstruct:mapstruct-processor:1.4.2.Final"
 }

@@ -6,7 +6,6 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":hexa-domain"))
 
     implementation(Dependencies.SPRING_WEB)
 
@@ -15,6 +14,13 @@ dependencies {
 
     implementation(Dependencies.JACKSON)
     implementation(Dependencies.SPRING_VALIDATION)
+
+    implementation(Dependencies.MAPSTRUCT)
+    kapt(Dependencies.MAPSTRUCT_PROCESSOR)
+
+    implementation(Dependencies.CONFIGURATION_PROCESSOR)
+
+    implementation(project(":hexa-domain"))
 }
 
 noArg {
