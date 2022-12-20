@@ -23,4 +23,10 @@ object Dependencies {
 
     const val MAPSTRUCT = "org.mapstruct:mapstruct:1.4.2.Final"
     const val MAPSTRUCT_PROCESSOR = "org.mapstruct:mapstruct-processor:1.4.2.Final"
+
+    // security
+    const val SPRING_SECURITY = "org.springframework.boot:spring-boot-starter-security"
+
+    // jwt
+    const val JWT = "io.jsonwebtoken:jjwt:${DependencyVersions.JWT_VERSION}"
 }

@@ -20,6 +20,9 @@ dependencies {
 
     implementation(Dependencies.CONFIGURATION_PROCESSOR)
 
+    implementation(Dependencies.JWT)
+    implementation(Dependencies.SPRING_SECURITY)
+
     implementation(project(":hexa-domain"))
 }
 
