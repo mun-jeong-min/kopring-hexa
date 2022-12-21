@@ -1,11 +1,11 @@
 package com.example.kopringhexa.global.security.auth
 
-import com.example.kopringhexa.domain.user.domain.User
+import com.example.kopringhexa.domain.user.persistence.entity.UserEntity
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 
 class AuthDetails (
-        private val user: User
+        private val user: UserEntity
 ) : UserDetails{
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> = mutableListOf()
 
