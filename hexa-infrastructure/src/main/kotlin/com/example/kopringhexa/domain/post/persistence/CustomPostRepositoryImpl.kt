@@ -6,6 +6,7 @@ import com.example.kopringhexa.domain.post.persistence.entity.PostEntity
 import com.example.kopringhexa.domain.post.spi.PostSaveRepositorySpi
 import org.springframework.stereotype.Repository
 
+@Repository
 class CustomPostRepositoryImpl(
         private val postMapper: PostMapper,
         private val postRepository: PostRepository
