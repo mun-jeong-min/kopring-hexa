@@ -1,23 +1,41 @@
 package com.example.kopringhexa.global.security.jwt
 
 import com.example.kopringhexa.domain.user.persistence.UserRepository
+import com.example.kopringhexa.domain.user.dto.TokenResponse
 import com.example.kopringhexa.global.error.exception.InvalidJwtException
 import com.example.kopringhexa.global.security.auth.AuthDetailService
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.ExpiredJwtException
 import io.jsonwebtoken.Jwts
+import io.jsonwebtoken.SignatureAlgorithm
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.stereotype.Component
+import java.util.*
 import javax.servlet.http.HttpServletRequest
 
 @Component
 class JwtTokenProvider(
-        private val userRepository: UserRepository,
         private val authDetailService: AuthDetailService,
         private val jwtProperties: JwtProperties
 ) {
+
+    fun getToken(name: String): TokenResponse {
+        return TokenResponse(
+                accessToken = generateAccessToken(name, jwtProperties.accessExp, "access")
+        )
+    }
+
+    private fun generateAccessToken(name: String, expired: Long, type: String): String {
+        return Jwts.builder()
+                .signWith(SignatureAlgorithm.HS256, jwtProperties.secretKey)
+                .setSubject(name)
+                .setHeaderParam("type", type)
+                .setIssuedAt(Date())
+                .setExpiration(Date(System.currentTimeMillis() + expired * 1000))
+                .compact()
+    }
 
     fun resolveToken(request: HttpServletRequest): String? {
         val token: String? = request.getHeader(jwtProperties.header)
