@@ -10,17 +10,19 @@ import com.example.kopringhexa.domain.user.spi.UserJwtRepositorySpi
 @UseCase
 class SignInUseCase(
     private val saveUserRepositorySpi: SaveUserRepositorySpi,
-    private val userJwtRepositorySpi: UserJwtRepositorySpi
+    private val userJwtRepositorySpi: UserJwtRepositorySpi,
 ) : SignInPort {
     override fun signIn(name: String, password: String): TokenResponse {
-        val user: User = User(
+        val user = User(
                 name = name,
                 password = password
         )
 
+        saveUserRepositorySpi.checkUser(user)
+
         saveUserRepositorySpi.saveUser(user)
 
-        return userJwtRepositorySpi.jwtUser(
+        return saveUserRepositorySpi.jwtUser(
                 user = user
         )
     }

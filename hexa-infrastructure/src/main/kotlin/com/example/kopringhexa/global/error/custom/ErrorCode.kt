@@ -11,6 +11,8 @@ enum class ErrorCode (
     INVALID_JWT_EXCEPTION(HttpStatus.UNAUTHORIZED, "invalid jwt"),
     EXPIRED_JWT_EXCEPTION(HttpStatus.UNAUTHORIZED, "Expired jwt"),
 
+    USER_EXIST(HttpStatus.CONFLICT, "User Exists"),
+
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "server error");
 
     override fun status() = status.value()
