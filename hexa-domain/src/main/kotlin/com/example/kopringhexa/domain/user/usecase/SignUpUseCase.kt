@@ -1,18 +1,18 @@
 package com.example.kopringhexa.domain.user.usecase
 
 import com.example.kopringhexa.annotation.UseCase
-import com.example.kopringhexa.domain.user.api.SignInPort
+import com.example.kopringhexa.domain.user.api.SignUpPort
 import com.example.kopringhexa.domain.user.domain.User
 import com.example.kopringhexa.domain.user.dto.TokenResponse
 import com.example.kopringhexa.domain.user.spi.SaveUserRepositorySpi
 import com.example.kopringhexa.domain.user.spi.UserJwtRepositorySpi
 
 @UseCase
-class SignInUseCase(
+class SignUpUseCase(
     private val saveUserRepositorySpi: SaveUserRepositorySpi,
     private val userJwtRepositorySpi: UserJwtRepositorySpi,
-) : SignInPort {
-    override fun signIn(name: String, password: String): TokenResponse {
+) : SignUpPort {
+    override fun signup(name: String, password: String): TokenResponse {
         val user = User(
                 name = name,
                 password = password
