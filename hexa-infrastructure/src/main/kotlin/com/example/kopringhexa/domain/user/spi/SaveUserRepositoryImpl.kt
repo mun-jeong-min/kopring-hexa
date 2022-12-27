@@ -5,16 +5,25 @@ import com.example.kopringhexa.domain.user.exception.UserExistException
 import com.example.kopringhexa.domain.user.mapper.UserMapper
 import com.example.kopringhexa.domain.user.persistence.UserRepository
 import com.example.kopringhexa.domain.user.persistence.entity.UserEntity
+import org.mapstruct.control.MappingControl.Use
+import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Repository
 
 @Repository
 class SaveUserRepositoryImpl (
     private val userMapper: UserMapper,
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val passwordEncoder: PasswordEncoder
 ): SaveUserRepositorySpi {
 
     override fun saveUser(user: User) {
-        val userEntity : UserEntity = userMapper.userDomainToEntity(user)
+
+        val users = User(
+                name = user.name,
+                password = passwordEncoder.encode(user.password)
+        )
+
+        val userEntity : UserEntity = userMapper.userDomainToEntity(users)
 
         userRepository.findUserEntityByName(userEntity.name).let {
             if(it != null) { throw UserExistException.EXCEPTION }
