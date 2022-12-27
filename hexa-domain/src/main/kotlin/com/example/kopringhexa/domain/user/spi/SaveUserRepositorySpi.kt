@@ -7,8 +7,4 @@ import com.example.kopringhexa.domain.user.dto.TokenResponse
 @Spi
 interface SaveUserRepositorySpi {
     fun saveUser(user: User)
-
-    fun jwtUser(user: User): TokenResponse
-
-    fun checkUser(user: User)
 }
