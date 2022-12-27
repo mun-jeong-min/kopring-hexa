@@ -8,5 +8,7 @@ class Post (
 
     val title: String,
 
-    val content: String
+    val content: String,
+
+    val userId: Long = 0
 )

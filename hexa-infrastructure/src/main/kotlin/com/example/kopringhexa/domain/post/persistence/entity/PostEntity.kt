@@ -1,5 +1,6 @@
 package com.example.kopringhexa.domain.post.persistence.entity
 
+import com.example.kopringhexa.domain.user.persistence.entity.UserEntity
 import javax.persistence.*
 import javax.validation.constraints.NotNull
 
@@ -8,7 +9,11 @@ import javax.validation.constraints.NotNull
 class PostEntity(
     title: String,
 
-    content: String
+    content: String,
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name = "user_id")
+    val userEntity: UserEntity
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

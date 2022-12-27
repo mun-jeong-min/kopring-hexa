@@ -61,8 +61,9 @@ class JwtTokenProvider(
     private fun getTokenBody(token: String): Claims {
         return try {
             Jwts.parser().setSigningKey(jwtProperties.secretKey)
-                    .parseClaimsJwt(token).body
+                    .parseClaimsJws(token).body
         } catch (e: Exception) {
+            e.printStackTrace()
             when(e) {
                 is ExpiredJwtException -> throw com.example.kopringhexa.global.error.exception.ExpiredJwtException.EXCEPTION
                 else -> throw InvalidJwtException.EXCEPTION
