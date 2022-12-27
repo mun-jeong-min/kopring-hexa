@@ -12,8 +12,8 @@ class JwtTokenFilter(
 ) : OncePerRequestFilter() {
     override fun doFilterInternal(request: HttpServletRequest, response: HttpServletResponse, filterChain: FilterChain) {
         val bearer: String? = jwtTokenProvider.resolveToken(request)
-        if(bearer != null) {
-            val authentication: Authentication = jwtTokenProvider.authentication(bearer)
+        bearer?.let {
+            val authentication: Authentication = jwtTokenProvider.authentication(it)
             SecurityContextHolder.getContext().authentication = authentication
         }
         filterChain.doFilter(request, response)
