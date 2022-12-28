@@ -30,4 +30,6 @@ object Dependencies {
 
     // jwt
     const val JWT = "io.jsonwebtoken:jjwt:${DependencyVersions.JWT_VERSION}"
+
+    const val redis = "org.springframework.boot:spring-boot-starter-data-redis"
 }

@@ -23,6 +23,11 @@ dependencies {
     implementation(Dependencies.JWT)
     implementation(Dependencies.SPRING_SECURITY)
 
+    implementation(Dependencies.redis)
+
+    implementation(Dependencies.QUERYDSL)
+    kapt(Dependencies.QUERYDSL_PROCESSOR)
+
     implementation(project(":hexa-domain"))
 }
 
