@@ -32,6 +32,8 @@ class SecurityConfig (
                 .authorizeHttpRequests()
                 .antMatchers(HttpMethod.POST,"/user/signup").permitAll()
                 .antMatchers(HttpMethod.POST,"/user/sign").permitAll()
+                .antMatchers(HttpMethod.POST,"/post").authenticated()
+                .antMatchers(HttpMethod.GET,"/post").authenticated()
                 .anyRequest().authenticated()
                 .and()
                 .apply(FilterConfig(objectMapper, jwtTokenProvider))
