@@ -6,9 +6,9 @@ import com.example.kopringhexa.domain.user.persistence.entity.QUserEntity.userEn
 import com.example.kopringhexa.domain.post.persistence.entity.QPostEntity.postEntity
 import com.querydsl.jpa.impl.JPAQueryFactory
 
-class CustomPostImpl(
+class CustomPostRepositoryImpl(
         private val query: JPAQueryFactory
-) : CustomPost {
+) : CustomPostRepository {
     override fun queryPost(title: String): List<PostVo> {
         return query.select(
                 QPostVo(

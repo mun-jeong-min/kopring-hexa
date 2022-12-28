@@ -13,7 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Repository
 
 @Repository
-class CustomUserRepositoryImpl (
+class UserPersistenceAdapter (
     private val userMapper: UserMapper,
     private val userRepository: UserRepository,
     private val passwordEncoder: PasswordEncoder,
