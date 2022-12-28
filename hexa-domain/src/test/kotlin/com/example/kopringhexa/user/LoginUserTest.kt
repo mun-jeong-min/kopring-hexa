@@ -1,7 +1,5 @@
 package com.example.kopringhexa.user
 
-import com.example.kopringhexa.domain.user.api.SignInPort
-import com.example.kopringhexa.domain.user.api.SignUpPort
 import com.example.kopringhexa.domain.user.domain.User
 import com.example.kopringhexa.domain.user.dto.TokenResponse
 import com.example.kopringhexa.domain.user.spi.SignInRepositorySpi
