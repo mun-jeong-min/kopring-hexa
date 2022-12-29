@@ -1,7 +1,9 @@
 package com.example.kopringhexa.domain.post.presentation
 
+import com.example.kopringhexa.domain.post.api.PostReadPort
 import com.example.kopringhexa.domain.post.api.PostSavePort
 import com.example.kopringhexa.domain.post.api.PostSearchPort
+import com.example.kopringhexa.domain.post.dto.PostElementResponse
 import com.example.kopringhexa.domain.post.dto.PostListResponse
 import com.example.kopringhexa.domain.post.presentation.dto.request.PostSaveRequest
 import org.springframework.http.HttpStatus
@@ -18,7 +20,8 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class PostAdapter(
         private val postSavePort: PostSavePort,
-        private val postSearchPort: PostSearchPort
+        private val postSearchPort: PostSearchPort,
+        private val postReadPort: PostReadPort
 ) {
 
     @ResponseStatus(HttpStatus.CREATED)
@@ -32,9 +35,15 @@ class PostAdapter(
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping
-    fun searchPost(@RequestParam(name = "title", required = false, defaultValue = " ") title: String): PostListResponse {
+    fun searchPost(@RequestParam(name = "title", required = false, defaultValue = "") title: String): PostListResponse {
         return postSearchPort.searchPost(
                 title
         )
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/{id}")
+    fun readPost(@PathVariable("id") id: Long): PostElementResponse {
+        return postReadPort.readPost(id)
     }
 }
