@@ -3,8 +3,11 @@ package com.example.kopringhexa.domain.post.persistence
 import com.example.kopringhexa.domain.post.domain.Post
 import com.example.kopringhexa.domain.post.dto.PostElementResponse
 import com.example.kopringhexa.domain.post.dto.PostListResponse
+import com.example.kopringhexa.domain.post.exception.PostNotFoundException
+import com.example.kopringhexa.domain.post.facade.PostFacade
 import com.example.kopringhexa.domain.post.mapper.PostMapper
 import com.example.kopringhexa.domain.post.persistence.entity.PostEntity
+import com.example.kopringhexa.domain.post.spi.PostReadRepositorySpi
 import com.example.kopringhexa.domain.post.spi.PostSaveRepositorySpi
 import com.example.kopringhexa.domain.post.spi.SearchPostRepositorySpi
 import com.example.kopringhexa.domain.search.persistence.SearchRepository
@@ -18,8 +21,9 @@ class PostPersistenceAdapter(
         private val postMapper: PostMapper,
         private val postRepository: PostRepository,
         private val userFacade: UserFacade,
-        private val searchRepository: SearchRepository
-) : PostSaveRepositorySpi, SearchPostRepositorySpi {
+        private val searchRepository: SearchRepository,
+        private val postFacade: PostFacade
+) : PostSaveRepositorySpi, SearchPostRepositorySpi, PostReadRepositorySpi {
     override fun savePost(post: Post) {
         val userEntity = userFacade.getCurrentUser()
 
@@ -51,6 +55,17 @@ class PostPersistenceAdapter(
         return PostListResponse(
                 postList,
                 searchRepository.findByUserId(user.id)?.title ?: ""
+        )
+    }
+
+    override fun readPost(id: Long): PostElementResponse {
+        val post = postFacade.getPost(id)
+        val name = post.userEntity.name
+
+        return PostElementResponse(
+                post.title,
+                post.content,
+                name
         )
     }
 }

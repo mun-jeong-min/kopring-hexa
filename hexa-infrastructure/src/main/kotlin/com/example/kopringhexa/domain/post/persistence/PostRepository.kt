@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface PostRepository : CrudRepository<PostEntity, Long>, CustomPostRepository {
+    fun findPostEntityById(id: Long): PostEntity?
 }

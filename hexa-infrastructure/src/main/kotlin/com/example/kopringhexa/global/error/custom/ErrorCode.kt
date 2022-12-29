@@ -7,6 +7,7 @@ enum class ErrorCode (
         private val message: String
 ) : ErrorProperty {
     USER_NOT_FOUND_EXCEPTION(HttpStatus.NOT_FOUND, "user not found"),
+    POST_NOT_FOUND_EXCEPTION(HttpStatus.NOT_FOUND, "post not found"),
 
     INVALID_JWT_EXCEPTION(HttpStatus.UNAUTHORIZED, "invalid jwt"),
     EXPIRED_JWT_EXCEPTION(HttpStatus.UNAUTHORIZED, "Expired jwt"),
