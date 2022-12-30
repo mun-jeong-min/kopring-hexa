@@ -7,10 +7,7 @@ import com.example.kopringhexa.domain.post.exception.PostNotFoundException
 import com.example.kopringhexa.domain.post.facade.PostFacade
 import com.example.kopringhexa.domain.post.mapper.PostMapper
 import com.example.kopringhexa.domain.post.persistence.entity.PostEntity
-import com.example.kopringhexa.domain.post.spi.PostReadRepositorySpi
-import com.example.kopringhexa.domain.post.spi.PostSaveRepositorySpi
-import com.example.kopringhexa.domain.post.spi.PostUpdateRepositorySpi
-import com.example.kopringhexa.domain.post.spi.SearchPostRepositorySpi
+import com.example.kopringhexa.domain.post.spi.*
 import com.example.kopringhexa.domain.search.persistence.SearchRepository
 import com.example.kopringhexa.domain.search.persistence.entity.SearchEntity
 import com.example.kopringhexa.domain.user.facade.UserFacade
@@ -25,7 +22,7 @@ class PostPersistenceAdapter(
         private val userFacade: UserFacade,
         private val searchRepository: SearchRepository,
         private val postFacade: PostFacade
-) : PostSaveRepositorySpi, SearchPostRepositorySpi, PostReadRepositorySpi, PostUpdateRepositorySpi {
+) : PostSaveRepositorySpi, SearchPostRepositorySpi, PostReadRepositorySpi, PostUpdateRepositorySpi, PostDeleteRepositorySpi {
 
     @Transactional
     override fun savePost(post: Post) {
@@ -80,5 +77,10 @@ class PostPersistenceAdapter(
         val post = postFacade.getPost(id)
 
         post.updatePost(title, content)
+    }
+
+    @Transactional
+    override fun deletePost(id: Long) {
+        postRepository.delete(postFacade.getPost(id))
     }
 }

@@ -1,13 +1,11 @@
 package com.example.kopringhexa.domain.post.presentation
 
-import com.example.kopringhexa.domain.post.api.PostReadPort
-import com.example.kopringhexa.domain.post.api.PostSavePort
-import com.example.kopringhexa.domain.post.api.PostSearchPort
-import com.example.kopringhexa.domain.post.api.PostUpdatePort
+import com.example.kopringhexa.domain.post.api.*
 import com.example.kopringhexa.domain.post.dto.PostElementResponse
 import com.example.kopringhexa.domain.post.dto.PostListResponse
 import com.example.kopringhexa.domain.post.presentation.dto.request.PostSaveRequest
 import org.springframework.http.HttpStatus
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -24,7 +22,8 @@ class PostAdapter(
         private val postSavePort: PostSavePort,
         private val postSearchPort: PostSearchPort,
         private val postReadPort: PostReadPort,
-        private val postUpdatePort: PostUpdatePort
+        private val postUpdatePort: PostUpdatePort,
+        private val postDeletePort: PostDeletePort
 ) {
 
     @ResponseStatus(HttpStatus.CREATED)
@@ -54,5 +53,11 @@ class PostAdapter(
     @PutMapping("/{id}")
     fun updatePost(@PathVariable("id") id: Long, @RequestBody request: PostSaveRequest) {
         postUpdatePort.updatePost(id, request.title, request.content)
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/{id}")
+    fun deletePost(@PathVariable("id") id: Long) {
+        postDeletePort.deletePost(id)
     }
 }
