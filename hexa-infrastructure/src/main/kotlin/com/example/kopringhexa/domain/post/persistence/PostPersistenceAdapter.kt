@@ -9,12 +9,14 @@ import com.example.kopringhexa.domain.post.mapper.PostMapper
 import com.example.kopringhexa.domain.post.persistence.entity.PostEntity
 import com.example.kopringhexa.domain.post.spi.PostReadRepositorySpi
 import com.example.kopringhexa.domain.post.spi.PostSaveRepositorySpi
+import com.example.kopringhexa.domain.post.spi.PostUpdateRepositorySpi
 import com.example.kopringhexa.domain.post.spi.SearchPostRepositorySpi
 import com.example.kopringhexa.domain.search.persistence.SearchRepository
 import com.example.kopringhexa.domain.search.persistence.entity.SearchEntity
 import com.example.kopringhexa.domain.user.facade.UserFacade
 import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.stereotype.Component
+import javax.transaction.Transactional
 
 @Component
 class PostPersistenceAdapter(
@@ -23,7 +25,9 @@ class PostPersistenceAdapter(
         private val userFacade: UserFacade,
         private val searchRepository: SearchRepository,
         private val postFacade: PostFacade
-) : PostSaveRepositorySpi, SearchPostRepositorySpi, PostReadRepositorySpi {
+) : PostSaveRepositorySpi, SearchPostRepositorySpi, PostReadRepositorySpi, PostUpdateRepositorySpi {
+
+    @Transactional
     override fun savePost(post: Post) {
         val userEntity = userFacade.getCurrentUser()
 
@@ -37,6 +41,7 @@ class PostPersistenceAdapter(
         postRepository.save(postEntity)
     }
 
+    @Transactional
     override fun searchPost(title: String): PostListResponse {
         val user = userFacade.getCurrentUser()
 
@@ -58,6 +63,7 @@ class PostPersistenceAdapter(
         )
     }
 
+    @Transactional
     override fun readPost(id: Long): PostElementResponse {
         val post = postFacade.getPost(id)
         val name = post.userEntity.name
@@ -67,5 +73,12 @@ class PostPersistenceAdapter(
                 post.content,
                 name
         )
+    }
+
+    @Transactional
+    override fun updatePost(id: Long, title: String, content: String) {
+        val post = postFacade.getPost(id)
+
+        post.updatePost(title, content)
     }
 }

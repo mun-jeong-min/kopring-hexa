@@ -26,4 +26,9 @@ class PostEntity(
     @NotNull
     var content = content
         protected set
+
+    fun updatePost(title: String, content: String) {
+        this.title = title
+        this.content = content
+    }
 }
