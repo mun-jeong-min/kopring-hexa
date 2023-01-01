@@ -3,7 +3,6 @@ package com.example.kopringhexa.domain.post.persistence
 import com.example.kopringhexa.domain.post.domain.Post
 import com.example.kopringhexa.domain.post.dto.PostElementResponse
 import com.example.kopringhexa.domain.post.dto.PostListResponse
-import com.example.kopringhexa.domain.post.exception.PostNotFoundException
 import com.example.kopringhexa.domain.post.facade.PostFacade
 import com.example.kopringhexa.domain.post.mapper.PostMapper
 import com.example.kopringhexa.domain.post.persistence.entity.PostEntity
@@ -11,7 +10,6 @@ import com.example.kopringhexa.domain.post.spi.*
 import com.example.kopringhexa.domain.search.persistence.SearchRepository
 import com.example.kopringhexa.domain.search.persistence.entity.SearchEntity
 import com.example.kopringhexa.domain.user.facade.UserFacade
-import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.stereotype.Component
 import javax.transaction.Transactional
 

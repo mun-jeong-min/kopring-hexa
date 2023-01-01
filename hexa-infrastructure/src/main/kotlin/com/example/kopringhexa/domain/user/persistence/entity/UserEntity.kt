@@ -21,4 +21,8 @@ class UserEntity(
     @NotNull
     var password = password
         protected set
+
+    fun updatePassword(password: String) {
+         this.password = password
+    }
 }
