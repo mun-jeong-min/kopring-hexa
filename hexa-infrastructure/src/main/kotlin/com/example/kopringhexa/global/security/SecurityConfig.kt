@@ -30,14 +30,19 @@ class SecurityConfig (
 
         http
                 .authorizeHttpRequests()
+
                 .antMatchers(HttpMethod.POST,"/user/signup").permitAll()
                 .antMatchers(HttpMethod.POST,"/user/sign").permitAll()
+                .antMatchers(HttpMethod.PUT,"/user").authenticated()
+
                 .antMatchers(HttpMethod.POST,"/post").authenticated()
                 .antMatchers(HttpMethod.GET,"/post").authenticated()
                 .antMatchers(HttpMethod.GET,"/post/{id}").permitAll()
                 .antMatchers(HttpMethod.PUT,"/post/{id}").authenticated()
                 .antMatchers(HttpMethod.DELETE,"/post/{id}").authenticated()
+
                 .anyRequest().authenticated()
+
                 .and()
                 .apply(FilterConfig(objectMapper, jwtTokenProvider))
 
