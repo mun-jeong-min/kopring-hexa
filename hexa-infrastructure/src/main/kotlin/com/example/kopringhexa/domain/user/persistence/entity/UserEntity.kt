@@ -1,5 +1,6 @@
 package com.example.kopringhexa.domain.user.persistence.entity
 
+import com.example.kopringhexa.global.entity.BaseTimeEntity
 import javax.persistence.*
 import javax.validation.constraints.NotNull
 
@@ -9,7 +10,7 @@ class UserEntity(
     name: String,
 
     password: String
-) {
+) : BaseTimeEntity() {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0
