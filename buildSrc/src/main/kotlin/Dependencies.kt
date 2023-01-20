@@ -32,4 +32,8 @@ object Dependencies {
     const val JWT = "io.jsonwebtoken:jjwt:${DependencyVersions.JWT_VERSION}"
 
     const val redis = "org.springframework.boot:spring-boot-starter-data-redis"
+
+    const val ACTUATP = "org.springframework.boot:spring-boot-starter-actuator"
+    const val CORE = "io.micrometer:micrometer-core"
+    const val PROMETEUS = "io.micrometer:micrometer-registry-prometheus"
 }

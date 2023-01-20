@@ -10,7 +10,7 @@ subprojects {
 
     apply {
         plugin("org.jetbrains.kotlin.kapt")
-           version = PluginVersions.KAPT_VERSION
+        version = PluginVersions.KAPT_VERSION
     }
 
     dependencies {

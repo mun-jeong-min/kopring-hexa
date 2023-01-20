@@ -28,6 +28,10 @@ dependencies {
     implementation(Dependencies.QUERYDSL)
     kapt(Dependencies.QUERYDSL_PROCESSOR)
 
+    implementation(Dependencies.ACTUATP)
+    implementation(Dependencies.CORE)
+    implementation(Dependencies.PROMETEUS)
+
     implementation(project(":hexa-domain"))
 }
 
